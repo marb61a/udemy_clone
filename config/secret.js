@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 module.exports = {
     database : 'mongodb://root:abcd1234@ds019866.mlab.com:19866/udemy_clone',
     port : 8080,
@@ -9,3 +10,6 @@ module.exports = {
     }
 };
 
+=======
+Secret Passwords
+>>>>>>> 8a07aa71921f7fe6849f6c4cc97b5100380b4613
