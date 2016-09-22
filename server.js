@@ -4,6 +4,8 @@ var morgan = require("morgan");
 var mongoose = require("mongoose");
 var ejs = require("ejs");
 var engine = require("ejs-mate");
+var passport = require("passport");
+
 
 var app = express();
 
@@ -24,6 +26,9 @@ app.set("view engine", "ejs");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(morgan('dev'));
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 require("./routes/main")(app);
 
