@@ -41,6 +41,7 @@ app.use(passport.session());
 
 
 require("./routes/main")(app);
+require("./routes/user")(app);
 
 app.listen(process.env.PORT, process.env.IP, function(err){
     if(err){

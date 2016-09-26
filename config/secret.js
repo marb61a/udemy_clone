@@ -3,7 +3,7 @@ module.exports = {
     port : 8080,
     secretKey : 'abcd1234',
     facebook : {
-        clientId : '1772337306315495',
+        clientID : '1772337306315495',
         clientSecret : '9132b1538e1b03f8e20835c2fe2c1bfb',
         profileFields : ['emails', 'displayName'],
         callbackURL : 'https://node-testing-marb.c9.io:8080/auth/facebook/callback'
