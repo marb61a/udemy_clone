@@ -20,6 +20,7 @@ passport.use(new FacebookStrategy(secret.facebook, function(req, token, refreshT
         
         if(user){
             return done(null, user);
+            req.flash('loginMessage', 'Successfully loggedIn with Facebook');
         } else {
             var newUser = new User;
             newUser.email = profile._json.email;
@@ -33,6 +34,7 @@ passport.use(new FacebookStrategy(secret.facebook, function(req, token, refreshT
                     throw err;
                 }
                 
+                req.flash('loginMessage', 'Successfully loggedIn with Facebook');
                 return done(null, newUser);
             });
         }
