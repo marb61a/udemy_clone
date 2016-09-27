@@ -1,6 +1,8 @@
 var passport = require("passport");
 var FacebookStrategy = require("passport-facebook").Strategy;
 var secret = require("../config/secret");
+var async = require("async");
+var request =require("request");
 
 var User = require("../models/user");
 
@@ -22,21 +24,29 @@ passport.use(new FacebookStrategy(secret.facebook, function(req, token, refreshT
             return done(null, user);
             req.flash('loginMessage', 'Successfully loggedIn with Facebook');
         } else {
-            var newUser = new User;
-            newUser.email = profile._json.email;
-            newUser.facebook = profile.id;
-            newUser.tokens.push({kind : 'facebook', token : token});
-            newUser.profile.name = profile.displayName;
-            newUser.profile.picture = 'https://graph.facebook.com/' + profile.id + '/picture?type=large';
-            
-            newUser.save(function(err){
-                if(err){
-                    throw err;
-                }
+            async.waterfall([
+                function(callback){
+                    var newUser = new User;
+                    newUser.email = profile._json.email;
+                    newUser.facebook = profile.id;
+                    newUser.tokens.push({kind : 'facebook', token : token});
+                    newUser.profile.name = profile.displayName;
+                    newUser.profile.picture = 'https://graph.facebook.com/' + profile.id + '/picture?type=large';
+                    
+                    newUser.save(function(err){
+                        if(err){
+                            throw err;
+                        }
+                        
+                        req.flash('loginMessage', 'Successfully loggedIn with Facebook');
+                        callback(err, newUser);
+                    });
+                },
                 
-                req.flash('loginMessage', 'Successfully loggedIn with Facebook');
-                return done(null, newUser);
-            });
+                function(callback){
+                    
+                }
+            ]);
         }
     });
     
