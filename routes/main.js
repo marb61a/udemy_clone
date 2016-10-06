@@ -13,4 +13,10 @@ module.exports = function(app){
             res.render('courses/courses', { courses: courses });
         });
     });
+    
+    app.get('/courses/:id', function(req, res, next) {
+        async.parallel([
+            
+        ]);
+    });
 };
