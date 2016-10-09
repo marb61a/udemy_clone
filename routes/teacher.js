@@ -18,8 +18,33 @@ module.exports = function(app){
                 course.save(function(err){
                     callback(err, course);
                 });
-            } 
+            },
+            
+            function(course, callback){
+                User.findOne({_id: req.user._id}, function(err, foundUser){
+                    foundUser.role = "teacher";
+                    foundUser.coursesTeach.push({ course: course._id });
+                    foundUser.save(function(err) {
+                        if (err) return next(err);
+                            res.redirect('/teacher/dashboard');
+                    });
+                });
+            }
         ]);
-    }
-    );
+    });
+    
+    app.get('/teacher/dashboard', function(req, res, next){
+        User.findOne({ _id : req.user._id })
+            .populate('coursesTeach.course')
+            .exec(function(err, foundUser){
+                res.render('teacher/teacher-dashboard', { foundUser: foundUser });
+            });
+    });
+    
+    app.route('/create-course')
+        .get(function(req, res, next) {
+            res.render('teacher/create-course');
+        })
+        
+        .post()
 };
