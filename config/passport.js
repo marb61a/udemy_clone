@@ -43,8 +43,26 @@ passport.use(new FacebookStrategy(secret.facebook, function(req, token, refreshT
                     });
                 },
                 
-                function(callback){
-                    
+                function(newUser, callback){
+                    request({
+                        url : '',
+                        method : 'POST',
+                        headers : {
+                            'Authorization' : '',
+                            'Content-Type' : 'application/json'
+                        },
+                        json : {
+                            'email_address' : newUser.email,
+                            'status' : 'subscribed'
+                        }
+                    }, function(err, response, body){
+                        if(err){
+                            return done(err, newUser);
+                        } else {
+                            console.log("Success");
+                            return done(null, newUser);
+                        }
+                    });
                 }
             ]);
         }
