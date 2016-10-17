@@ -1,0 +1,22 @@
+<% layout('boilerplate') %>
+
+<div class="jumbotron">
+    <div class="container">
+        <a href="/create-course" class="btn btn-primary btn-lg">
+            Create a new Course
+        </a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <h2 class="text-center">Courses You Teach</h2>
+        <hr />
+        
+        <% for(var i = 0; i < foundUser.coursesTeach.length; i++) { %>
+            <div class="col-md-4">
+                <a></a>   
+            </div>
+        <% } %>
+    </div>
+</div>
