@@ -15,7 +15,15 @@
         
         <% for(var i = 0; i < foundUser.coursesTeach.length; i++) { %>
             <div class="col-md-4">
-                <a></a>   
+                <a href="/courses/<%= foundUser.coursesTeach[i].course._id%>" style="text-decoration: none; color: #34495e">
+                    <div class="panel panel-default">
+                        <h3><%= foundUser.coursesTeach[i].course.title %></h3>
+                        <p><%= foundUser.coursesTeach[i].course.desc %></p>
+                        <a href="/edit-course/<%= foundUser.coursesTeach[i].course._id%>" class="btn btn-default">
+                            Edit Course
+                        </a>
+                    </div>
+                </a>   
             </div>
         <% } %>
     </div>
