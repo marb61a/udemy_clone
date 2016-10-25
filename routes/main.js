@@ -40,6 +40,17 @@ module.exports = function(app){
                     });
             }
             
-        ]);
+        ], function(err, results){
+            var course = results[0];
+            var userCourse = results[1];
+            var teacherCourse = results[2];
+            if(userCourse === null && teacherCourse === null){
+                res.render('courses/courseDesc', { course: course });    
+            } else if(userCourse === null && teacherCourse != null){
+                res.render('courses/course', { course: course });
+            } else{
+                res.render('courses/course', { course: course });  
+            }
+        });
     });
 };

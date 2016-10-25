@@ -42,9 +42,22 @@ module.exports = function(app){
                                     if(err)
                                         return next(err);
                                     callback(err);
-                                }
-                                );
-                            }    
+                                });
+                            },
+                            function(callback){
+                                User.update(
+                                {
+                                    _id : req.user._id,
+                                    'coursesTaken.course': { $ne: courseId }
+                                },
+                                {
+                                    $push : { coursesTaken: { course: courseId }}
+                                }, function(err, count){
+                                    if(err)
+                                        return next(err);
+                                    callback(err); 
+                                });
+                            }
                         ]);
                     });
                 });
