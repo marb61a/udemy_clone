@@ -14,12 +14,13 @@ module.exports = function(app){
         failureRedirect : '/login'
     }));
     
-    app.get('logout', function(req, res, next){
+    app.get('/logout', function(req, res, next){
         req.logout();
         res.redirect('/');
     });
     
-    app.get('profile', function(req, res, next) {
+    app.get('/profile', function(req, res, next) {
         res.render('accounts/profile', {message : req.flash('loginMessage')}); 
     });
 };
+

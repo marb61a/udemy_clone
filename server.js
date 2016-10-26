@@ -10,7 +10,6 @@ var cookieParser = require("cookie-parser");
 var MongoStore = require("connect-mongo/es5")(session);
 var flash = require("express-flash");
 
-
 var app = express();
 
 var secret = require("./config/secret");
@@ -48,6 +47,8 @@ app.use(function(req, res, next){
 
 require("./routes/main")(app);
 require("./routes/user")(app);
+require('./routes/teacher')(app);
+require('./routes/payment')(app);
 
 app.listen(process.env.PORT, process.env.IP, function(err){
     if(err){
