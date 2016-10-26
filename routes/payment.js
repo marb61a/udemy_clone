@@ -57,8 +57,25 @@ module.exports = function(app){
                                         return next(err);
                                     callback(err); 
                                 });
+                            },
+                            function(callback){
+                                User.update(
+                                {
+                                    _id : foundCourse.ownByTeacher
+                                },
+                                {
+                                    $push : {revenue: { money: foundCourse.price }}
+                                },function(err, count) {
+                                    if(err)
+                                        return next(err);
+                                    callback(err);
+                                });
                             }
-                        ]);
+                        ], function(err, results){
+                            if(err)
+                                return next(err);
+                            res.redirect('/courses'+ courseId); 
+                        });
                     });
                 });
             }
